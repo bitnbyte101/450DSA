@@ -2,32 +2,40 @@
  
 #include<bits/stdc++.h>
 using namespace std;
+
+int maxProfit(vector<int>&price){
+    
+    int fb = INT_MIN;
+    int fs = 0;
+    int sb = INT_MIN;
+    int ss = 0;
+    
+    int n = price.size();
+    
+    for(int i=0;i<n;i++){
+        
+        fb = max(fb,-price[i]);
+        fs = max(fs,price[i]+fb);
+        sb = max(sb,-price[i]+fs);
+        ss = max(ss,price[i]+sb);
+    }
+    
+    return ss;
+    
+}
  
 void solve(){
     
     int n;
     cin>>n;
-    
-    int arr[n];
+    vector<int>price(n);
     
     for(int i=0;i<n;i++){
-        cin>>arr[i];
+        cin>>price[i];
     }
     
-    int fb = INT_MAX;
-    int fs = 0;
-    int sb = INT_MIN;
-    int ss = 0;
+    cout<<"MAX PROFIT IS : "<<maxProfit(price)<<endl;
     
-    for(int i=0;i<n;i++){
-        
-        fb = min(fb,arr[i]);
-        fs = max(fs,arr[i]-fb);
-        sb = max(sb,fs-arr[i]);
-        ss = max(ss,sb+arr[i]);
-    }   
-    
-    cout<<"MAX PROFIT IS : "<<ss<<endl;
 }
 
 
@@ -45,7 +53,7 @@ int main()
     cin.tie(NULL);cout.tie(NULL);
     
     int tc=1;
-    cin>>tc;
+    // cin>>tc;
     while(tc--)
     {
         solve();
